@@ -21,11 +21,17 @@ for line in lines:
         continue
     if line[0].isnumeric():  # money line
         split_info = line.split(' ')
-        total_money += int(split_info[2][1:]) # remove £
+        print(f'{split_info[0]} {split_info[1]}')
+        # remove £
+        try:
+            money = int(split_info[2][1:])
+        except ValueError:  #windows read some characters differently
+            money = int(split_info[2][2:])
+        total_money += money 
         total_players_txt += int(split_info[4])
 
     else:   # player line 
-        
+        print(line, '\n')
         players = line.split(' ')
         for player in players:
             if player in ['', ' ', '\n']:
