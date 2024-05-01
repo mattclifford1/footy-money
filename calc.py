@@ -2,7 +2,7 @@ import sys
 import math
 
 if len(sys.argv) == 1:
-    file = 'fixtures-2-2024.txt'
+    file = 'fixtures-1-2024.txt'
 else:
     file = sys.argv[1]
 
@@ -64,7 +64,7 @@ print('===============\n\n')
     
 print('Sanity checks:')
 print('players: ', total_players, total_players_txt)
-print(f'rough money: {sessions*71}')
+print(f'rough money: {sessions*71} (for 7 a side pitch)')
 print(f'added: {dict_values}')
               
 
