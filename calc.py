@@ -19,6 +19,8 @@ max_len_name = 0
 for line in lines:
     if line == '':
         continue
+    if line[0] == '#':
+        continue
     if line[0].isnumeric():  # money line
         split_info = line.split(' ')
         print(f'{split_info[0]} {split_info[1]}')
