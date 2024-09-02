@@ -1,0 +1,14 @@
+# start with the money, date and number of players
+# then the names of the players
+
+# Click the submit button to get the formatted payments!
+
+
+
+# e.g.:
+
+25 June £51 - 3
+Player1 Player2 Player3
+
+30 June £51 - 4
+Player1 Player2 Player4 Player5

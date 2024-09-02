@@ -22,6 +22,7 @@ for line in lines:
     if line[0] == '#':
         continue
     if line[0].isnumeric():  # money line
+        print(line)
         split_info = line.split(' ')
         print(f'{split_info[0]} {split_info[1]}')
         # remove £
