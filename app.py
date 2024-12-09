@@ -76,7 +76,7 @@ def calc_money(footy_notes):
 
 
 if __name__ == "__main__":
-    with open('info.txt') as f:
+    with open('fixtures-all-2024.txt') as f:
         default = f.read()
     input = gr.Textbox(value=default, label="Enter footy notes")
     demo = gr.Interface(fn=calc_money, inputs=input, outputs="textbox")

@@ -2,7 +2,7 @@ import sys
 import math
 
 if len(sys.argv) == 1:
-    file = 'fixtures-5-2024.txt'
+    file = 'fixtures-all-2024.txt'
 else:
     file = sys.argv[1]
 
