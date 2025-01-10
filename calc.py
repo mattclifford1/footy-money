@@ -67,7 +67,8 @@ print('===============\n\n')
     
 print('Sanity checks:')
 print('players: ', total_players, total_players_txt)
-print(f'rough money: {sessions*71} (for 7 a side pitch)')
+print(f'rough money: {sessions*75} (for 7 a side pitch)')
 print(f'added: {dict_values}')
+print(f'num sessions: {sessions}')
               
 
