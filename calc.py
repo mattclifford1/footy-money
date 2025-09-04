@@ -69,7 +69,8 @@ def calc_money(lines):
         add_white = ' '*(max_len_name-len(player))
         cost = num*per_game
         cost = math.ceil(cost*100)/100
-        return_txt += f'{player}{add_white}: {num} games = £{cost}\n'
+        games_text = 'games' if num > 1 else 'game '
+        return_txt += f'{player}{add_white}: {num} {games_text} = £{cost}\n'
         dict_values += cost
     return_txt += '===============\n\n\n'
 
