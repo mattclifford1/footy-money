@@ -19,6 +19,7 @@ def calc_money(lines):
         if line[0] == '#':
             continue
         if line[0].isnumeric():  # money line
+            players_num_given = 0
             split_info = line.split(' ')
             print('=============================')
             print(line)
@@ -32,9 +33,11 @@ def calc_money(lines):
                 money = int(split_info[2][2:])
             total_money += money
             total_players_txt += int(split_info[4])
+            players_num_given += int(split_info[4])
 
         else:   # player line
-            return_txt += f'{line} \n\n'
+            players_in_line = 0
+            return_txt += f'{line} \n'
             players = line.split(' ')
             for player in players:
                 player = player.capitalize()
@@ -46,7 +49,11 @@ def calc_money(lines):
                     player_counts[player] = 1
                     max_len_name = max(max_len_name, len(player))
                 total_players += 1
+                players_in_line += 1
             sessions += 1
+
+            # finshed the players line so show quick sanity check
+            return_txt += f'players in line: {players_in_line} ({players_num_given} stated)\n\n'
 
     per_game = total_money/total_players
     player_counts = {k: v for k, v in sorted(
