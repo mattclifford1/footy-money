@@ -1,11 +1,13 @@
-# calculate footy money
-Make a new text file and run:
-```
-python3 calc.py FILENAME.txt
-```
+---
+title: Footy Money Calculator
+emoji: ⚽
+colorFrom: blue
+colorTo: green
+sdk: gradio
+python_version: "3.11"
+app_file: app.py
+---
 
-To update the huggingface space file e.g. 
-```
-https://huggingface.co/spaces/mattclifford1/footy-money/blob/main/calc.py
-```
-and click edit then paste the changes
+# Footy Money Calculator
+
+Get the aggreated subs for each player.
