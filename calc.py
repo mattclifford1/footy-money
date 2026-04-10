@@ -1,8 +1,40 @@
 import sys
 import math
+import configparser
+
+
+def _load_aliases(path='aliases.ini'):
+    cfg = configparser.ConfigParser()
+    cfg.read(path)  # silent no-op if file missing
+    if 'aliases' not in cfg:
+        return {}
+    return {alias: canonical for alias, canonical in cfg['aliases'].items()}
+
+
+def _load_rounding(path='config.ini'):
+    cfg = configparser.ConfigParser()
+    cfg.read(path)
+    try:
+        mode = cfg['rounding']['mode'].strip()
+    except KeyError:
+        mode = '2dp'
+    return mode if mode in ('2dp', '0.1', '0.2', '0.5') else '2dp'
+
+
+def _round_up(x, mode):
+    if mode == '0.1':
+        return math.ceil(x * 10) / 10
+    elif mode == '0.2':
+        return math.ceil(x * 5) / 5
+    elif mode == '0.5':
+        return math.ceil(x * 2) / 2
+    return math.ceil(x * 100) / 100
 
 
 def calc_money(lines):
+    aliases = _load_aliases()
+    rounding_mode = _load_rounding()
+
     
     total_players = 0
     total_players_txt = 0
@@ -40,7 +72,8 @@ def calc_money(lines):
             return_txt += f'{line} \n'
             players = line.split(' ')
             for player in players:
-                player = player.capitalize()
+                # apply aliases and normalise case
+                player = aliases.get(player.lower(), player).capitalize()
                 if player in ['', ' ', '\n']:
                     continue
                 elif player in player_counts.keys():
@@ -62,13 +95,13 @@ def calc_money(lines):
     return_txt += '===============\n'
     return_txt += f'total sessions: {sessions}\n'
     return_txt += f'total cost   : £{total_money}\n'
-    per_game = math.ceil(per_game*100)/100
+    per_game = _round_up(per_game, rounding_mode)
     return_txt += f'per game cost: £{per_game}\n'
     dict_values = 0
     for player, num in player_counts.items():
         add_white = ' '*(max_len_name-len(player))
         cost = num*per_game
-        cost = math.ceil(cost*100)/100
+        cost = _round_up(cost, rounding_mode)
         games_text = 'games' if num > 1 else 'game '
         return_txt += f'{player}{add_white}: {num} {games_text} = £{cost}\n'
         dict_values += cost
@@ -76,7 +109,7 @@ def calc_money(lines):
 
     return_txt += 'Sanity checks:\n'
     return_txt += f'players: {total_players} (names) {total_players_txt} (numbers)\n'
-    return_txt += f'rough money: {sessions*75} (for 7 a side pitch)\n'
+    return_txt += f'rough money: {sessions*80} (for 7 a side pitch @ £80)\n'
     return_txt += f'added: {dict_values}\n'
     return_txt += f'num sessions: {sessions}'
 
